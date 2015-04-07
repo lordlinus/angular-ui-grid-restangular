@@ -9,22 +9,30 @@ MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
 # MONGO_USERNAME = 'user'
 # MONGO_PASSWORD = 'user'
-MONGO_DBNAME = 'test'
+MONGO_DBNAME = 'twitter'
 
 CACHE_CONTROL = 'max-age=20'
 CACHE_EXPIRES = 20
+X_DOMAINS = '*'
+X_HEADERS = 'accept, content-type'
+XML = False
+DEBUG = True
+RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
+ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
+
 
 tweets = {
     'item_title': 'testing',
     'tweet': 'body',
-    'resource_methods': ['GET', 'POST'],
     'cache_control': 'max-age=10,must-revalidate',
     'cache_expires': 10,
+    'resource_methods': ['GET', 'POST', 'DELETE'],
+    'item_methods': ['PATCH', 'DELETE', 'GET'],
     'schema': {
         'body': {
             'type': 'string',
             'minlength': 1,
-            'maxlength': 300,
+            'maxlength': 320,
         },
         'postedTime': {
             'type': 'string',
@@ -33,7 +41,10 @@ tweets = {
             'required': True,
             'unique': True,
         },
+        'userScore': {
+            'type': 'string',
+            'required': True
+        }
     }
 }
 DOMAIN = {'twitter_historical_stream_copy': tweets}
-X_DOMAINS = '*'

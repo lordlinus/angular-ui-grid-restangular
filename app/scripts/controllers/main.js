@@ -2,68 +2,61 @@
 myAngularApp.controller( 'HomeController', [ '$scope', 'Restangular',
 
     function ( $scope, Restangular ) {
-    $scope.sentiment = [ {
-            ID: 1,
-            type: 'positive'
-        }, {
-            ID: 2,
-            type: 'negative'
-        }, {
-            ID: 3,
-            type: 'dont know'
-        }, {
-            ID: 4,
-            type: 'none'
-        }, ];
-        var resource = Restangular.all( 'twitter_historical_stream_copy' ).customGET( "" ).then( function ( data ) {
-            $scope.myData = data._items;
-            console.log( $scope.myData );
-        } );
+        $scope.sentiment = {
+            1: 'positive',
+            2: 'negative',
+            3: 'dont know',
+            4: 'none'
+        };
+        var tweets = Restangular.all( 'twitter_historical_stream_copy' );
+        $scope.myData = [];
+        var fetch = function () {
+            tweets.customGET( "" ).then( function ( response ) {
+                $scope.myData = response._items;
+            } );
+        }
+        fetch();
         $scope.gridOptions = {
             data: 'myData',
-            // multiSelect: true,
+            multiSelect: false,
+            enableCellSelection: true,
+            enableRowSelection: false,
+            enableCellEditOnFocus: true,
+            rowHeight: 50,
             // Column definition example
             columnDefs: [ {
-                field: '_id',
-                cellTemplate: '<div ng-class="{green: row.getProperty(col.field) > 1}"><div class="ngCellText">{{row.getProperty(col.field)}}</div></div>'
-            }, {
                 field: 'body',
-                displayName: 'Tweet'
-            }, {
-                field: 'postedTime',
-                displayName: 'posted time'
+                displayName: 'Tweet',
+                enableCellEdit: false,
+                width: '*'
             }, {
                 field: 'userScore',
+                displayName: 'Sentiment',
                 editType: 'dropdown',
                 enableCellEdit: true,
-                displayName: 'tweet sentiment',
-                editDropdownOptionsArray: $scope.sentiment,
-                editDropdownIdLabel: 'type',
-                editDropdownValueLabel: 'type',
-                editableCellTemplate: 'templates/sentiment_edit.html'
-            }, {
-                name: 'gender',
-                displayName: 'Gender',
-                editType: 'dropdown',
-                width: '20%',
-                editDropdownValueLabel: 'gender',
-                editDropdownOptionsArray: [
-                    {
-                        id: 1,
-                        gender: 'male'
-                    },
-                    {
-                        id: 2,
-                        gender: 'female'
-                    }
-        ]
+                enableCellEditOnFocus: true,
+                cellTemplate: '<select ng-class="\'colt\' + col.index" ng-input="COL_FIELD" ng-model="COL_FIELD" ng-options="id as name for (id, name) in sentiment"/>',
+                width: '15%'
             } ],
-            rowTemplate: '<div style="height: 100%" ng-class="{green: row.getProperty(\'id\') > 2 }"><div ng-style="{ \'cursor\': row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell ">' + '<div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }"> </div>' + '<div ng-cell></div>' + '</div></div>'
         };
-        $scope.$on( 'ngGridEventEndCellEdit', function ( evt ) {
-            // Detect changes and send entity to REST server
-            // gridService.saveContributor( evt.targetScope.row.entity );
-            console.log( evt );
+        $scope.$on( 'ngGridEventEndCellEdit', function ( data ) {
+            if ( !data.targetScope.row ) {
+                data.targetScope.row = [];
+            }
+            var doc = data.targetScope.row.entity;
+            // var rowIndex = data.targetScope.row.rowIndex;
+            // console.log( data.targetScope.row );
+            // console.log( $scope.myData[ rowIndex ] );
+            var docID = doc._id;
+            // tweets.post( docID ).then( function ( postData ) {
+            //     console.log( postData );
+            // } );
+            console.log( docID );
+            tweets.one( '' ).patch( docID, doc ).then( function () {
+                console.log( "Object saved OK" );
+            }, function () {
+                console.log( "There was an error saving" );
+            } );
         } );
     }
 ] );

@@ -6,7 +6,7 @@ var myAngularApp = angular.module( 'angularUiGridRestangular', [
     'restangular'
 ] );
 myAngularApp.config( [ 'RestangularProvider', function ( RestangularProvider ) {
-    RestangularProvider.setBaseUrl( 'http://127.0.0.1:5000' );
+    RestangularProvider.setBaseUrl( 'http://127.0.0.1:3000' );
     RestangularProvider.setRestangularFields( {
         id: '_id'
     } );
