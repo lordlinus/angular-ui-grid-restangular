@@ -1,19 +1,19 @@
 {
   "name": "angular-ui-grid-restangular",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
-    "angular": "^1.3.0",
-    "bootstrap": "^3.2.0",
-    "angular-resource": "^1.3.0",
-    "angular-route": "^1.3.0",
-    "ng-grid": "~2.0.14",
-    "restangular": "~1.4.0",
-    "jquery": "~2.1.3"
+    "angular": "~1.2.4",
+    "bootstrap": "latest",
+    "angular-resource": "~1.2.4",
+    "angular-route": "~1.2.4",
+    "ng-grid": "latest",
+    "restangular": "latest",
+    "jquery": "latest"
   },
   "devDependencies": {
-    "angular-mocks": "^1.3.0",
-    "restangular": "~1.4.0",
-    "ng-grid": "~2.0.14"
+    "angular-mocks": "~1.2.4",
+    "restangular": "latest",
+    "ng-grid": "latest"
   },
   "appPath": "app",
   "moduleName": "angularUiGridRestangularApp"

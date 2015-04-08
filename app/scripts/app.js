@@ -8,8 +8,20 @@ var myAngularApp = angular.module( 'angularUiGridRestangular', [
 myAngularApp.config( [ 'RestangularProvider', function ( RestangularProvider ) {
     RestangularProvider.setBaseUrl( 'http://127.0.0.1:3000' );
     RestangularProvider.setRestangularFields( {
-        id: '_id'
+        id: '_id',
+        restangularEtag: '_etag'
     } );
+    // RestangularProvider.setRequestInterceptor( function ( elem, operation, what ) {
+    //     if ( operation === 'put' ) {
+    //         elem._id = undefined;
+    //         return elem;
+    //     }
+    //     return elem;
+    // } );
+    // RestangularProvider.setDefaultHttpFields( {
+    //     cache: true
+    // } );
+    // RestangularProvider.setMethodOverriders( [ "put", "patch" ] );
 } ] );
 myAngularApp.config( [ '$routeProvider', function ( $routeProvider ) {
     $routeProvider.when( '/', {

@@ -8,6 +8,7 @@ myAngularApp.controller( 'HomeController', [ '$scope', 'Restangular',
             3: 'dont know',
             4: 'none'
         };
+        // Restangular.setFullResponse( true );
         var tweets = Restangular.all( 'twitter_historical_stream_copy' );
         $scope.myData = [];
         var fetch = function () {
@@ -48,15 +49,23 @@ myAngularApp.controller( 'HomeController', [ '$scope', 'Restangular',
             // console.log( data.targetScope.row );
             // console.log( $scope.myData[ rowIndex ] );
             var docID = doc._id;
-            // tweets.post( docID ).then( function ( postData ) {
-            //     console.log( postData );
+            doc.userScore = parseInt( doc.userScore, 10 );
+            // tweets.one( docID ).patch( _.pick( doc, 'userScore' ) ).then( function () {
+            //     console.log( "PATCH Object saved OK" );
+            // }, function () {
+            //     console.log( "There was an error saving via PATCH" );
             // } );
-            console.log( docID );
-            tweets.one( '' ).patch( docID, doc ).then( function () {
-                console.log( "Object saved OK" );
+            doc.restangularEtag = doc._etag;
+            tweets.one( docID ).patch( _.pick( doc, 'userScore', 'restangularEtag' ) ).then( function () {
+                console.log( "PATCH Object saved OK" );
             }, function () {
-                console.log( "There was an error saving" );
+                console.log( "There was an error saving via PATCH" );
             } );
+            // tweets.one( '' ).put( doc ).then( function () {
+            //     console.log( "PUT Object saved OK" );
+            // }, function () {
+            //     console.log( "There was an error saving via PUT" );
+            // } );
         } );
     }
 ] );
