@@ -6,9 +6,9 @@
     "bootstrap": "latest",
     "angular-resource": "~1.2.4",
     "angular-route": "~1.2.4",
-    "ng-grid": "latest",
     "restangular": "latest",
-    "jquery": "latest"
+    "jquery": "latest",
+    "angular-ui-grid": "~3.0.0-rc.20"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.4",

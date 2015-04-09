@@ -1,2 +1,19 @@
-  <div class="gridStyle" ng-grid="gridOptions"></div>
+<!--   <div ui-grid="gridOptions" ui-grid-edit class="gridStyle" external-scopes="myExternalScope"></div>
+ -->
+        <form ng-submit="submit()" name="saveTemplateData">
 
+        <p>ID: {{tweet._id}} </p>
+        <br>
+        <p>{{tweet.body}}<p>
+
+                <br/><br/>
+
+            <input type="radio" ng-model="sentiment" value="positive" /> Positive
+             <br/><br/>
+            <input type="radio" ng-model="sentiment" value="negative" /> Negative
+             <br/><br/>
+             <input type="radio" ng-model="sentiment" value="neutral" /> Dont know
+            <br/><br/>
+            <input type="submit" ngClick="submit()">
+            {{message}}
+        </form>

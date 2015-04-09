@@ -9,8 +9,8 @@ from eve.methods.post import post_internal
 
 settings = {
     # Server config
-    'DEBUG': True,
-    'XML': False,
+    # 'DEBUG': True,
+    # 'XML': False,
 
 
 
@@ -55,8 +55,8 @@ tweets = {
             'minlength': 1,
             'maxlength': 50,
         },
-        'userScore': {
-            'type': 'number',
+        'sentiment': {
+            'type': 'string',
             'required': True
         },
         'restangularEtag': {
@@ -67,7 +67,7 @@ tweets = {
 }
 
 # Adding data sources to the api
-settings['DOMAIN'] = {'twitter_historical_stream_copy': tweets}
+settings['DOMAIN'] = {'twitter_stream': tweets}
 
 app = Eve(settings=settings)
 

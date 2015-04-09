@@ -2,7 +2,8 @@
 // Declare core application module which pulls all the components together
 var myAngularApp = angular.module( 'angularUiGridRestangular', [
     'ngRoute',
-    'ngGrid',
+    'ui.grid',
+    'ui.grid.edit',
     'restangular'
 ] );
 myAngularApp.config( [ 'RestangularProvider', function ( RestangularProvider ) {
